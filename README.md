@@ -1,4 +1,4 @@
-# Offline Application Workshop
+# Offline Application Service Workshop
 
 ## Just cf push
 

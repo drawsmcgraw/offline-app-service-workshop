@@ -1,5 +1,13 @@
 # Offline Application Workshop
 
+## Just cf push
+
+The content in this workshop is already generated. Just clone this repo and `cf push` is all that's needed.
+
+For build instructions (for modification or adopting to your needs), see below.
+
+## Building
+
 To generate this workshop you'll need [Hugo](https://gohugo.io/) installed. 
 
 Once that's installed cd into the root of the project and run this:

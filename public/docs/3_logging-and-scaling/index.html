@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Logging and Scaling With the Application Service, you can view the logs of your application in real time.
+Access Application Logs Tail the logs:
+cf logs attendees Then open a browser and view the attendees application.
+Observe the log output when the attendees web page is refreshed. More logs are added!
+To stop tailing logs, go to the terminal tailing the logs and send an interrupt (Control &#43; c).
+Access Application Events Events for the application can also be used to compliment the logs in determining what has occurred with an application.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Logging and Scaling With the Application Service, you can view the logs of your application in real time.
+Access Application Logs Tail the logs:
+cf logs attendees Then open a browser and view the attendees application.
+Observe the log output when the attendees web page is refreshed. More logs are added!
+To stop tailing logs, go to the terminal tailing the logs and send an interrupt (Control &#43; c).
+Access Application Events Events for the application can also be used to compliment the logs in determining what has occurred with an application." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/3_logging-and-scaling/" />
+
+<title>3 Logging and Scaling | App Service Workshop</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
+<script defer src="/en.search.min.278787bf5c4cd94fa5e10df004a77c1bd6c0bc5acf377ca692ee377b8c97607b.js" integrity="sha256-J4eHv1xM2U&#43;l4Q3wBKd8G9bAvFrPN3ymku43e4yXYHs="></script>
+
+<script defer src="/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>App Service Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/1_logging-in/" class="">1 Logging In</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/2_unpack-and-push-app/" class="">2 Unpack and Push App</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/3_logging-and-scaling/" class="active">3 Logging and Scaling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/4_high-availability/" class="">4 High Availability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/5_namespacing/" class="">5 Namespacing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/6_cleanup/" class="">6 Cleanup</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>3 Logging and Scaling</strong>
+
+  <label for="toc-control">
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#logging-and-scaling">Logging and Scaling</a>
+      <ul>
+        <li><a href="#access-application-logs">Access Application Logs</a></li>
+        <li><a href="#access-application-events">Access Application Events</a></li>
+        <li><a href="#scaling-the-application">Scaling the Application</a></li>
+        <li><a href="#scale-out">Scale Out</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="logging-and-scaling">Logging and Scaling</h1>
+<p>With the Application Service, you can view the logs of your application in real time.</p>
+<h2 id="access-application-logs">Access Application Logs</h2>
+<p>Tail the logs:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cf logs attendees
+</code></pre></div><p>Then open a browser and view the <em>attendees</em> application.</p>
+<p>Observe the log output when the <em>attendees</em> web page is refreshed.
+More logs are added!</p>
+<p>To stop tailing logs, go to the terminal tailing the logs and send an
+interrupt (Control + c).</p>
+<h2 id="access-application-events">Access Application Events</h2>
+<p>Events for the application can also be used to compliment the logs in determining what has occurred with an application.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cf events attendees
+</code></pre></div><h2 id="scaling-the-application">Scaling the Application</h2>
+<p>Start tailing the logs again.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cf logs attendees | grep <span style="color:#e6db74">&#34;API\|CELL&#34;</span>
+</code></pre></div><p>The above statement filters only matching log lines from the Cloud Controller
+and Cell components.</p>
+<p>In another terminal window scale attendees.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cf scale attendees -m 1G
+</code></pre></div><p>Observe log output.
+Stop tailing the logs.
+Scale attendees back to our original settings.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cf scale attendees -m 768M
+</code></pre></div><h2 id="scale-out">Scale Out</h2>
+<p>Browse to the <em>Scale and HA</em> page on the <em>attendees</em> application.
+Review the <em>Application Environment Information</em>.</p>
+<p>Press the <code>Refresh</code> button multiple times. All requests are going to one application instance.</p>
+<p>Start tailing the logs.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>mac, linux<span style="color:#f92672">]</span>
+ cf logs attendees | grep <span style="color:#e6db74">&#34;API\|CELL&#34;</span>
+
+<span style="color:#f92672">[</span>windows<span style="color:#f92672">]</span>
+cf logs attendees | findstr <span style="color:#e6db74">&#34;API CELL&#34;</span>
+</code></pre></div><p>In another terminal windows, scale the <em>attendees</em> application.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cf scale attendees -i <span style="color:#ae81ff">3</span>
+</code></pre></div><p>Observe log output. Then stop tailing the logs.
+Return to <code>attendees</code> in a web browser. Press the <code>Refresh</code> button several times. Observe the <code>Addresses</code> and <code>Instance Index</code> changing.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#logging-and-scaling">Logging and Scaling</a>
+      <ul>
+        <li><a href="#access-application-logs">Access Application Logs</a></li>
+        <li><a href="#access-application-events">Access Application Events</a></li>
+        <li><a href="#scaling-the-application">Scaling the Application</a></li>
+        <li><a href="#scale-out">Scale Out</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

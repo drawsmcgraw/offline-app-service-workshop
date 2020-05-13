@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bosh Releases Software is packaged in the form of releases. We will deploy it later via a deployment with a custom manifest file.
+Check out Bosh.io’s Releases page and find “cloudfoundry-incubator/envoy-nginx-release”
+We will be deploying this release. Run this command:
+bosh -e aws upload-release --sha1 13cf87b2394c7d3924f9d66836c56302fb46a90d https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.17.0 Now verify you can see the nginx release:
+bosh -e aws releases ">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Bosh Releases Software is packaged in the form of releases. We will deploy it later via a deployment with a custom manifest file.
+Check out Bosh.io’s Releases page and find “cloudfoundry-incubator/envoy-nginx-release”
+We will be deploying this release. Run this command:
+bosh -e aws upload-release --sha1 13cf87b2394c7d3924f9d66836c56302fb46a90d https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.17.0 Now verify you can see the nginx release:
+bosh -e aws releases " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/4_bosh-releases/" />
+<meta property="article:modified_time" content="2020-04-29T12:03:49-06:00" />
+<title>4 Bosh Releases | Bosh Workshop</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
+<script defer src="/en.search.min.ee8c75931a2550fb6adce6c56f8695abc17a5533d92ba4dc055732ced6f2a0c0.js" integrity="sha256-7ox1kxolUPtq3ObFb4aVq8F6VTPZK6TcBVcyztbyoMA="></script>
+
+<script defer src="/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Bosh Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/1_environment-setup/" class="">1 Environment Setup</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/2_deploy-director/" class="">2 Deploy Director</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/3_cloud-config/" class="">3 Cloud Config</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/4_bosh-releases/" class="active">4 Bosh Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/5_stemcells/" class="">5 Stemcells</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/6_bosh-deployments/" class="">6 Bosh Deployments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/7_cleanup/" class="">7 Cleanup</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>4 Bosh Releases</strong>
+
+  <label for="toc-control">
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bosh-releases">Bosh Releases</a></li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="bosh-releases">Bosh Releases</h1>
+<p>Software is packaged in the form of <strong>releases</strong>. We will deploy it later via a <strong>deployment</strong> with a custom manifest file.</p>
+<p>Check out 
+  <a href="https://bosh.io/releases/">Bosh.io’s Releases</a> page and find “cloudfoundry-incubator/envoy-nginx-release”</p>
+<p>We will be deploying this release. Run this command:</p>
+<pre><code>bosh -e aws upload-release --sha1 13cf87b2394c7d3924f9d66836c56302fb46a90d https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.17.0
+</code></pre><p>Now verify you can see the nginx release:</p>
+<pre><code>bosh -e aws releases
+</code></pre></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/commit/364a63011aa3ac90ce9cd52e6f1793ce2ef81b41" title='Last modified by Nick Sterling | April 29, 2020' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>April 29, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/edit/master/exampleSite/content/docs/4_bosh-releases.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bosh-releases">Bosh Releases</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

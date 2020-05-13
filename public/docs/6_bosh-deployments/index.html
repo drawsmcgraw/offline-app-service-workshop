@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bosh Deployments Now let’s deploy the Nginx release. Go to the Cloud Foundry Nginx Github page. We’ll be needing the manifest to deploy it. Navigate to manifests/nginx-lite.yml. Copy the contents of this file to nginx.yml on your jumpbox.
+Once you have it try to deploy it.
+bosh -e aws -d nginx deploy ./nginx.yml You should see the following error
+Error: Instance group &#39;nginx&#39; references an unknown disk type &#39;default&#39; The reason for the error is because the deployment is referencing an invalid disk type.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Bosh Deployments Now let’s deploy the Nginx release. Go to the Cloud Foundry Nginx Github page. We’ll be needing the manifest to deploy it. Navigate to manifests/nginx-lite.yml. Copy the contents of this file to nginx.yml on your jumpbox.
+Once you have it try to deploy it.
+bosh -e aws -d nginx deploy ./nginx.yml You should see the following error
+Error: Instance group &#39;nginx&#39; references an unknown disk type &#39;default&#39; The reason for the error is because the deployment is referencing an invalid disk type." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/6_bosh-deployments/" />
+<meta property="article:modified_time" content="2020-04-29T12:03:49-06:00" />
+<title>6 Bosh Deployments | Bosh Workshop</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
+<script defer src="/en.search.min.ee8c75931a2550fb6adce6c56f8695abc17a5533d92ba4dc055732ced6f2a0c0.js" integrity="sha256-7ox1kxolUPtq3ObFb4aVq8F6VTPZK6TcBVcyztbyoMA="></script>
+
+<script defer src="/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Bosh Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/1_environment-setup/" class="">1 Environment Setup</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/2_deploy-director/" class="">2 Deploy Director</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/3_cloud-config/" class="">3 Cloud Config</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/4_bosh-releases/" class="">4 Bosh Releases</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/5_stemcells/" class="">5 Stemcells</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/6_bosh-deployments/" class="active">6 Bosh Deployments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/7_cleanup/" class="">7 Cleanup</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>6 Bosh Deployments</strong>
+
+  <label for="toc-control">
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bosh-deployments">Bosh Deployments</a>
+      <ul>
+        <li><a href="#scaling">Scaling</a></li>
+        <li><a href="#upgrade-stemcell">Upgrade Stemcell</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="bosh-deployments">Bosh Deployments</h1>
+<p>Now let’s deploy the Nginx release. Go to the 
+  <a href="https://github.com/cloudfoundry-community/nginx-release">Cloud Foundry Nginx Github</a> page. We’ll be needing the manifest to deploy it. Navigate to manifests/nginx-lite.yml. Copy the contents of this file to nginx.yml on your jumpbox.</p>
+<p>Once you have it try to deploy it.</p>
+<pre><code>bosh -e aws -d nginx deploy ./nginx.yml
+</code></pre><p>You should see the following error</p>
+<pre><code>Error: Instance group 'nginx' references an unknown disk type 'default'
+</code></pre><p>The reason for the error is because the deployment is referencing an invalid disk type. If you pull up your cloud config, you’ll notice you don’t have a default disk. You’ll need to edit your nginx.yml file to make it correspond to the cloud config.</p>
+<p>Try to deploy it once again.</p>
+<pre><code>bosh -e aws -d nginx deploy ./nginx.yml
+</code></pre><p>This should be the output</p>
+<pre><code>Task 11 | 01:47:29 | Preparing package compilation: Finding packages to compile (00:00:00)
+Task 11 | 01:47:29 | Compiling packages: nginx/66c3f00b386cb6166d60748308b27fa31f4285ad2eac86024e7166b29837bf0d (00:04:39)
+Task 11 | 01:52:42 | Creating missing vms: nginx/05eeb5fd-687b-4f84-8f09-9af220e314d0 (0)
+Task 11 | 01:52:42 | Creating missing vms: nginx/85fc0e69-3a2c-4e77-b845-f1f2810d84a1 (1) (00:02:24)
+Task 11 | 01:55:10 | Creating missing vms: nginx/05eeb5fd-687b-4f84-8f09-9af220e314d0 (0) (00:02:28)
+Task 11 | 01:55:11 | Updating instance nginx: nginx/05eeb5fd-687b-4f84-8f09-9af220e314d0 (0) (canary) (00:00:39)
+Task 11 | 01:55:50 | Updating instance nginx: nginx/85fc0e69-3a2c-4e77-b845-f1f2810d84a1 (1) (00:00:38)
+
+Task 11 Started  Tue Apr 28 01:47:29 UTC 2020
+Task 11 Finished Tue Apr 28 01:56:28 UTC 2020
+Task 11 Duration 00:08:59
+Task 11 done
+</code></pre><p>Once it deploys check the VM’s that it created.</p>
+<pre><code>bosh -e aws -d nginx vms
+</code></pre><p>The output should be</p>
+<pre><code>Instance                                    Process State  AZ  IPs        VM CID               VM Type  Active  Stemcell
+nginx/05eeb5fd-687b-4f84-8f09-9af220e314d0  running        z1  10.0.0.21  i-0217a03c4c1eaa006  small    true    bosh-aws-xen-hvm-ubuntu-xenial-go_agent/621.69
+</code></pre><p>Now confirm nginx is working properly</p>
+<pre><code>curl 10.0.0.21
+</code></pre><h2 id="scaling">Scaling</h2>
+<p>Let’s scale our nginx.yml deployment from 1 to 2 instances. Once the file is updated try to redeploy with bosh -e aws -d nginx deploy nginx.yml. You should see the delta.</p>
+<pre><code>Using environment '10.0.0.6' as client 'admin'
+
+Using deployment 'nginx'
+
+  instance_groups:
+  - name: nginx
+-   instances: 1
++   instances: 2
+
+Continue? [yN]:
+</code></pre><p>Once the operation completes get the VMs again:</p>
+<pre><code>bosh -e aws -d nginx vms
+</code></pre><p>You should now see two nginx VMs</p>
+<pre><code>Using environment '10.0.0.6' as client 'admin'
+
+Task 13. Done
+
+Deployment 'nginx'
+
+Instance                                    Process State  AZ  IPs        VM CID               VM Type  Active  Stemcell
+nginx/05eeb5fd-687b-4f84-8f09-9af220e314d0  running        z1  10.0.0.21  i-0217a03c4c1eaa006  small    true    bosh-aws-xen-hvm-ubuntu-xenial-go_agent/621.69
+nginx/85fc0e69-3a2c-4e77-b845-f1f2810d84a1  running        z1  10.0.0.22  i-0a3dac299b5c44696  small    true    bosh-aws-xen-hvm-ubuntu-xenial-go_agent/621.69
+
+2 vms
+
+Succeeded
+</code></pre><h2 id="upgrade-stemcell">Upgrade Stemcell</h2>
+<p>Now over time stemcells will be released with patched CVE’s or other updates. It’s very easy to update to the latest version.</p>
+<p>First let’s upload a newer stemcell:</p>
+<pre><code>bosh -e aws upload-stemcell https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=621.71
+</code></pre><p>Check the stemcells loaded in the environment</p>
+<pre><code>bosh -e aws stemcells
+</code></pre><p>Output</p>
+<pre><code>Using environment '10.0.0.6' as client 'admin'
+
+Name                                     Version  OS             CPI  CID
+bosh-aws-xen-hvm-ubuntu-xenial-go_agent  621.71   ubuntu-xenial  -    ami-0b1e748464b9b7470 light
+~                                        621.69*  ubuntu-xenial  -    ami-02ff958a8af2e0d0c light
+
+(*) Currently deployed
+
+2 stemcells
+
+Succeeded
+</code></pre><p>The act of uploading a new stemcell does not update any active deployments. You’ll need to do that separately.</p>
+<blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>Active stemcells will have an * next to their version numbers. You cannot delete a stemcell that’s currently being used by a deployment.
+Let’s update our nginx deployment to use the latest stemcell. In this case we stated we wanted to use the latest version of ubuntu-xenial so we don’t need to make a manifest change. To apply the change just run this command</p>
+
+</blockquote>
+
+<pre><code>bosh -e aws -d nginx deploy nginx.yml
+</code></pre><p>Output</p>
+<pre><code>Using environment '10.0.0.6' as client 'admin'
+
+Using deployment 'nginx'
+
+  stemcells:
++ - alias: ubuntu
++   os: ubuntu-xenial
++   version: '621.71'
+- - alias: ubuntu
+-   os: ubuntu-xenial
+-   version: '621.69'
+
+Continue? [yN]:
+</code></pre><p>After this completes check the stemcells again</p>
+<pre><code>bosh -e aws stemcells
+</code></pre><p>Output</p>
+<pre><code>bosh-aws-xen-hvm-ubuntu-xenial-go_agent  621.71*   ubuntu-xenial  -    ami-0b1e748464b9b7470 light
+~                                        621.69  ubuntu-xenial  -    ami-02ff958a8af2e0d0c light
+
+(*) Currently deployed
+
+2 stemcells
+
+Succeeded
+</code></pre></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/commit/364a63011aa3ac90ce9cd52e6f1793ce2ef81b41" title='Last modified by Nick Sterling | April 29, 2020' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>April 29, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/edit/master/exampleSite/content/docs/6_bosh-deployments.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bosh-deployments">Bosh Deployments</a>
+      <ul>
+        <li><a href="#scaling">Scaling</a></li>
+        <li><a href="#upgrade-stemcell">Upgrade Stemcell</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

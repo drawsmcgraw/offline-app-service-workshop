@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on App Service Workshop</title>
+    <link>/docs/</link>
+    <description>Recent content in Docs on App Service Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/docs/1_logging-in/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/1_logging-in/</guid>
+      <description>Logging In There are two methods to log in. Use the method appropriate for your environment.
+SSO Login Because we can&amp;rsquo;t authenticate with name/password, we will use the sso flag to the cf login command. When we run the command, we&amp;rsquo;ll be prompted to visit a site, authenticate via our browser, and collect an authentication token that we will provide to our cf login command.
+Here is an example:
+user@workstation:$ cf login --sso -a api.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/docs/2_unpack-and-push-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/2_unpack-and-push-app/</guid>
+      <description>Unpack The Demo App and cf push Unpack Create a directory, named workspace. Place the demo app tarball in there and unpack it.
+This project has already been built and is ready for deployment. There is no need to build it.
+Push Push the app:
+cf push Profit Congrats! You just built and deployed your first application! See below for example output and an explanation of what just happened.
+cf push example output Below is an example of the output you will see when pushing your app.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/docs/3_logging-and-scaling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/3_logging-and-scaling/</guid>
+      <description>Logging and Scaling With the Application Service, you can view the logs of your application in real time.
+Access Application Logs Tail the logs:
+cf logs attendees Then open a browser and view the attendees application.
+Observe the log output when the attendees web page is refreshed. More logs are added!
+To stop tailing logs, go to the terminal tailing the logs and send an interrupt (Control + c).
+Access Application Events Events for the application can also be used to compliment the logs in determining what has occurred with an application.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/docs/4_high-availability/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/4_high-availability/</guid>
+      <description>High Availability (HA) Application Service has 4 levels of HA (High Availability) that keep your applications and the underlying platform running.
+ App Instance Availability Zone Process Machine  In this section, we will demonstrate one of them (App Instance). Failed application instances will be recovered.
+At this time you should be running multiple instances of attendees. Confirm this with the following command:
+cf app attendees Return to attendees in a web browser and navigate to the Scale and HA page.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/docs/5_namespacing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/5_namespacing/</guid>
+      <description>Namespacing You can explicitly define the name of your application without having a random phrase attached to it. For example, if you&amp;rsquo;re testing a feature branch, and you&amp;rsquo;ve named the branch after an issue assigned to it (say, issue number 1331), you can deploy your feature branch right next to existing workloads with no interruption of the existing apps.
+In the manifest.yml, be sure random-route is set to false and add a -1331 to the end of your app name.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/docs/6_cleanup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/6_cleanup/</guid>
+      <description>Cleanup Feel free to keep your app deployed for further work and research. When you&amp;rsquo;re finished, you can remove it with:
+cf delete attendees And you&amp;rsquo;re done! You&amp;rsquo;ve successfully completed the Application Service workshop!</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/docs/1_logging-in/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/2_unpack-and-push-app/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/3_logging-and-scaling/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/4_high-availability/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/5_namespacing/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/6_cleanup/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+  </url>
+  
+</urlset>

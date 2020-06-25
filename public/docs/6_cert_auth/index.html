@@ -9,12 +9,12 @@
 <meta property="og:description" content="Certificate Authentication The platform you&rsquo;re using should be configured terminate TLS connections at the GoRouter (a component of the Platform). This happens before any traffic reaches your application. What this means for you is that you, as the developer, do not need to be concerned with Certificate Authority certs, chains, or handing authentication. If a user makes it to your application, they have already been verified to be a legitmate user (i." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/6_cert_auth/" />
-
+<meta property="article:modified_time" content="2020-06-25T13:52:24-04:00" />
 <title>6 Cert Auth | App Service Workshop</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
-<script defer src="/en.search.min.85afbf4f3f42bd035529179ced0226e9cde66a203ba55a6a7ff9f537505824a4.js" integrity="sha256-ha&#43;/Tz9CvQNVKRec7QIm6c3maiA7pVpqf/n1N1BYJKQ="></script>
+<script defer src="/en.search.min.ac5cb43438ad4ea712a69c008b5a3447ea6833d2e362078ff9d087347e421f42.js" integrity="sha256-rFy0NDitTqcSppwAi1o0R&#43;poM9LjYgeP&#43;dCHNH5CH0I="></script>
 
 <script defer src="/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script>
 <!--
@@ -202,15 +202,16 @@ https://github.com/alex-shpak/hugo-book
 <p>This configuration is illustrated in the image below.</p>
 <p>
   <img src="/docs/img/tls-pass-through.png" alt="TLS terminates at the GoRouter" /></p>
-<p>After handling the TLS termination and user authentication, the Platform will take the PEM-encoded x509 user certificate and place it into the <code>xfcc</code> (or x-forward-client-cert) HTTP header. If you are using Spring, you can take advantage of Spring Security to automatically parse this certificate. Even without Spring, you can easily find this cert in the xfcc header.</p>
+<p>After handling the TLS termination and user authentication, the Platform will take the PEM-encoded x509 user certificate and place it into the <code>xfcc</code> (x-forward-client-cert) HTTP header. If you are using Spring, you can take advantage of Spring Security to automatically parse this certificate. Even without Spring, you can easily find this cert in the xfcc header.</p>
 <p>We&rsquo;re going to test this capability in this exercise with another sample application. This is a simple application that describes its envirionment (i.e. environment variables) as well as dumps all HTTP headers for easy human inspection.</p>
 <p>Download the app 
-  <a href="/docs/pkg/cf-env.tgz">behind this link</a></p>
+  <a href="/docs/pkg/cf-env.tgz">with this link</a></p>
 <p>No building/compiling is necessary. Just unpack, <code>cd</code> into the <code>cf-env</code> directory, and <code>cf push</code> with the existing <code>manifest.yml</code>.</p>
 <p>After pushing, take the route that the Platform gives you and put it into your browser (remember to use <code>https</code> when putting the route into your browser). Once the app loads in your browser, click the &ldquo;Headers&rdquo; tab and confirm that the contents of the <code>X-Forwarded-Client-Cert</code> header are, indeed, the contents of your cert (i.e. what you loaded into your browser and chose to send to the app).</p>
 <p>The below example is an image of what to expect.</p>
 <p>
   <img src="/docs/img/xfcc-contents.png" alt="xfcc header contents" /></p>
+<p>This concludes the Cert Auth section of the workshop.</p>
 </article>
  
       

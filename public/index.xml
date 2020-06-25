@@ -72,10 +72,19 @@ In the manifest.yml, be sure random-route is set to false and add a -1331 to the
     
     <item>
       <title></title>
-      <link>/docs/6_cleanup/</link>
+      <link>/docs/6_cert_auth/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/6_cleanup/</guid>
+      <guid>/docs/6_cert_auth/</guid>
+      <description>Certificate Authentication The platform you&amp;rsquo;re using should be configured terminate TLS connections at the GoRouter (a component of the Platform). This happens before any traffic reaches your application. What this means for you is that you, as the developer, do not need to be concerned with Certificate Authority certs, chains, or handing authentication. If a user makes it to your application, they have already been verified to be a legitmate user (i.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/docs/7_cleanup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/7_cleanup/</guid>
       <description>Cleanup Feel free to keep your app deployed for further work and research. When you&amp;rsquo;re finished, you can remove it with:
 cf delete attendees And you&amp;rsquo;re done! You&amp;rsquo;ve successfully completed the Application Service workshop!</description>
     </item>

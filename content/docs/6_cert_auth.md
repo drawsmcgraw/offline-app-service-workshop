@@ -16,8 +16,11 @@ No building/compiling is necessary. Just unpack, `cd` into the `cf-env` director
 
 After pushing, take the route that the Platform gives you and put it into your browser (remember to use `https` when putting the route into your browser). Once the app loads in your browser, click the "Headers" tab and confirm that the contents of the `X-Forwarded-Client-Cert` header are, indeed, the contents of your cert (i.e. what you loaded into your browser and chose to send to the app).
 
-The below example is an image of what to expect.
+The below example of what to expect.
 
-![xfcc header contents](/docs/img/xfcc-contents.png)
+```
+X-Forwarded-Client-Cert:
+MIIFYTCCA0mgAwIBAgIQEHRAqT9wgUUD/YM/AhSBlTANBgkqhkiG9w0BAQsFADA2MRUwEwYDVQQKEwxwd3MgZGFyayBkZXYxHTAbBgNVBAMTFHB3cyBkYXJrIGRldiBSb290IENBMB4XDTIwMTAxNTIxNDcxMloXDTIxMTAxNTIxNDcxMlowSzEeMBwGA1UEChMVcHdzIGRhcmsgZGV2IFVzZXIgUEtJMQ8wDQYDVQQLEwZQZW9wbGUxGDAWBgNVBAMTD1Ntb2tlIFRlc3QgVXNlcjCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAJsmQKstaPvcM6l
+```
 
 This concludes the Cert Auth section of the workshop.

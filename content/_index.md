@@ -11,5 +11,4 @@ This workshop is built to help you become familiar with using the Application Se
 In order to be successful, you will need the following:
 * An account on the platform.
 * The sample app to deploy (found [HERE](/docs/pkg/attendees-sample-app.tgz))
-* The `cf` CLI (found [HERE](/docs/pkg/cf-cli-6.51.0.zip))
-
+* The `cf` CLI (found {{< cli-link >}})

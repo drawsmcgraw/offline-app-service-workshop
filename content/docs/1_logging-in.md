@@ -8,10 +8,11 @@ Because we can't authenticate with name/password, we will use the `sso` flag to 
 
 Here is an example:
 ```sh
-user@workstation:$ cf login --sso -a api.run.platform.com -o demo-org -s demo-space
-API endpoint: api.run.platform.com
+user@workstation:$ cf login --sso -a api.run.{{< param system_domain >}} -o demo-org -s demo-space
+API endpoint: api.run.{{< param system_domain >}}
 
-Temporary Authentication Code ( Get one at https://login.run.platform.gov/passcode )>
+Temporary Authentication Code ( Get one at https://login.run.{{< param system_domain >}}/passcode )> XXXXX
+
 Authenticating...
 OK
 
@@ -21,7 +22,7 @@ Targeted space demo-space
 
 
 
-API endpoint:   https://api.run.platform.gov (API version: 2.137.0)
+API endpoint:   https://api.run.{{< param system_domain >}} (API version: 2.137.0)
 User:           user@pivotal.io
 Org:            demo-org
 Space:          demo-space

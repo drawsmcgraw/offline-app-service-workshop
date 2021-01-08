@@ -1,6 +1,6 @@
 # High Availability (HA)
 
-Application Service has 4 levels of HA (High Availability) that keep your applications and the underlying platform running. 
+Application Service has 4 levels of HA (High Availability) that keep your applications and the underlying platform running.
 1. App Instance
 1. Availability Zone
 1. Process
@@ -22,24 +22,30 @@ cf app attendees
 
 Sample output below (notice the requested state vs actual state). In this case,  Application Service had already detected the failure and is starting a new instance.
 ```sh
-Showing health and status for app attendees in org mborges-org / space development as admin...
+Showing health and status for app attendees in org demo-org / space demo-space as admin...
 
 name:              attendees
 requested state:   started
-instances:         3/3
-usage:             768M x 3 instances
-routes:            attendees-doxastic-progenitiveness.apps.pcf.homelab.lan
-last uploaded:     Wed 09 Aug 17:18:22 CDT 2017
-stack:             cflinuxfs2
-buildpack:         container-security-provider=1.5.0_RELEASE
-                   java-buildpack=v3.18-offline-https://github.com/cloudfoundry/java-buildpack.git#841ecb2 java-main
-                   open-jdk-like-jre=1.8.0_131 open-jdk-like-memory-calculator=2.0.2_RELEASE
-                   open-jdk-like-security-providers secur...
+routes:            attendees-sleepy-bilby-di.cfapps.pcfeagledev.cf-app.com
+last uploaded:     Wed
+                   06
+                   Jan
+                   19:01:15
+                   UTC
+                   2021
+stack:             cflinuxfs3
+buildpacks:
+	name                     version                                                                    detect output   buildpack name
+	java_buildpack_offline   v4.34-offline-https://github.com/cloudfoundry/java-buildpack.git#04543c2   java            java
 
+type:           web
+sidecars:
+instances:      1/3
+memory usage:   768M
      state      since                  cpu    memory           disk           details
-#0   starting   2017-08-10T00:31:23Z   0.0%   272.3M of 768M   161.9M of 1G
-#1   running    2017-08-10T00:30:24Z   6.3%   401.1M of 768M   161.9M of 1G
-#2   running    2017-08-10T00:30:32Z   2.1%   408.8M of 768M   161.9M of 1G
+#0   running    2021-01-06T19:01:43Z   0.2%   277.9M of 768M   155.2M of 1G
+#1   running    2021-01-06T19:11:58Z   0.0%   510.7K of 768M   155.2M of 1G
+#2   starting   2021-01-06T19:11:58Z   0.2%   251M of 768M     155.2M of 1G
 ```
 Repeat this command as necessary until `state = running`.
 In your browser, Refresh the attendees application.
@@ -61,5 +67,3 @@ cf scale attendees -i 1
 * How do you recover failing application instances today?
 * What effect does this have on your application design?
 * How could you determine if your application has been crashing?
-
-

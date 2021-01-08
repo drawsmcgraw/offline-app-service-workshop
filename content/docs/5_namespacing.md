@@ -9,12 +9,13 @@ In the `manifest.yml`, be sure `random-route` is set to `false` and add a `-1331
 applications:
 - name: attendees-1331
   random-route: false
-  .
-  .
+  host: attendees-1331
+  domains:
+    - cfapps.{{< param system_domain >}}
   .
 ```
 
-Now `cf push` again, and the platform will deploy a new application instance alongside your existing one. 
+Now `cf push` again, and the platform will deploy a new application instance alongside your existing one.  `host` and `domains` are optional and are shown above to demonstrate the ability to change the route independently from the application name.  By default, TAS will use the application name as the hostname if the `host` is omitted and `random-route` is false.
 
 Here's an example output showing the two apps deployed.
 
@@ -24,8 +25,8 @@ Getting apps in org user-org / space development as user@platform.com...
 OK
 
 name                                    requested state   instances   memory   disk   urls
-attendees                               started           1/1         768M     1G     attendees.cfapps.io
-attendees-1331                          started           1/1         768M     1G     attendees-1331.cfapps.io
+attendees                               started           1/1         768M     1G     attendees.cfapps.{{< param system_domain >}}
+attendees-1331                          started           1/1         768M     1G     attendees-1331.cfapps.{{< param system_domain >}}
 
 
 ```
